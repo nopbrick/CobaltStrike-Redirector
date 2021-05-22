@@ -15,10 +15,10 @@ namespace Redirector.API
             ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
         });
         
-        public static string teamserver = "192.168.1.67"; 
+        public static string teamserver = "127.0.0.1"; // point this to your listener
         public static async Task Invoke(HttpContext context)
         {
-            var uri = new Uri("https://" + /*Environment.GetEnvironmentVariable("TEAMSERVER")*/teamserver + context.Request.Path.ToUriComponent());
+            var uri = new Uri("https://" + teamserver + context.Request.Path.ToUriComponent());
 
             var request  = CopyRequest(context, uri);
             var remoteRsp = await _httpClient.SendAsync(request);
